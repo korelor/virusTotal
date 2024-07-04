@@ -5,24 +5,24 @@ To start the program, do the following steps:
 
 step 0:
 ```
-    git clone https://github.com/korelor/virusTotal.git
-    cd virusTotal
+git clone https://github.com/korelor/virusTotal.git
+cd virusTotal
 ```
 step 1:
 ```
-    cat <<EOF >> .env
-    VT_API_KEY={set your api key from `https://www.virustotal.com/`}
-    MG_USER_NAME=test
-    MG_PASSWORD=test
-    EOF
+cat <<EOF >> .env
+VT_API_KEY={set your api key from `https://www.virustotal.com/`}
+MG_USER_NAME=test
+MG_PASSWORD=test
+EOF
 ```
 step 2:
 ```
-    docker compose up -d
+docker compose up -d
 ```
 step 3:
 ```
-    docker compose run ip-address
+docker compose run ip-address
 ```
 step 5:
 > to stop the program, 
