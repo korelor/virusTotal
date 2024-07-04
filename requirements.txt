@@ -1,0 +1,6 @@
+pymongo==4.8.0
+python-dotenv==1.0.1
+requests==2.25.1
+prettytable==3.10.0
+
+

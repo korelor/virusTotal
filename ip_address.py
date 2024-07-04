@@ -7,7 +7,9 @@ from prettytable import PrettyTable
 
 # connet to  mongodb 
 def conn_mongo():
-    mg_uri          = "mongodb://korelor:mongo@localhost:27017/"
+    user_name       = os.environ["MG_USER_NAME"]
+    password        = os.environ["MG_PASSWORD"]
+    mg_uri          = "mongodb://{}:{}@mongo:27017/".format(user_name,password)
     mg_client       = MongoClient(mg_uri)
     db_vt           = mg_client["virusTotal"]
     collection_ip   = db_vt["maliciousIPs"]
@@ -15,7 +17,6 @@ def conn_mongo():
     
 # check the ip in virus total 
 def check_virusTotal(ip):
-    load_dotenv()
     
     url     = "https://www.virustotal.com/api/v3/ip_addresses/" + ip
     headers = {
@@ -38,6 +39,7 @@ def show_result(data):
     print(table)
 
 def main():
+    load_dotenv()
     collection_ip = conn_mongo()
     while True:
         ip = input("\nEnter the IP address (to exit, enter the q):\n")

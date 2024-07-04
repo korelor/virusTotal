@@ -1,14 +1,25 @@
-version: "3"
-
 services:
+  ip-address:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      VT_API_KEY: ${VT_API_KEY}
+      MG_USER_NAME: ${MG_USER_NAME}
+      MG_PASSWORD: ${MG_PASSWORD}
+
   mongo:
     image: "mongo:7.0.6"
     ports:
       - "27017:27017"
     environment:
       MONGO_INITDB_DATABASE: maliciousIPs
-      MONGO_INITDB_ROOT_USERNAME: korelor
-      MONGO_INITDB_ROOT_PASSWORD: mongo
+      MONGO_INITDB_ROOT_USERNAME: ${MG_USER_NAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MG_PASSWORD}
     volumes:
       - /var/mongo/maliciousIPs:/data/db
     user: 1004:1004
@@ -22,6 +33,6 @@ services:
     ports:
       - "8081:8081"
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: korelor
-      ME_CONFIG_MONGODB_ADMINPASSWORD: mongo
-      ME_CONFIG_MONGODB_URL: mongodb://korelor:mongo@mongo:27017/
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MG_USER_NAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MG_PASSWORD}
+      ME_CONFIG_MONGODB_URL: mongodb://${MG_USER_NAME}:${MG_PASSWORD}@mongo:27017/
